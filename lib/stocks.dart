@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:finance_quote/finance_quote.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'bottomNavigation.dart';
+
 
 class StocksPage extends StatefulWidget {
   @override
@@ -92,7 +92,7 @@ class _StocksPageState extends State<StocksPage> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomNav(),
+      // bottomNavigationBar: BottomNav(),
     );
   }
 }

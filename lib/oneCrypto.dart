@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'pageController.dart';
 
 class CryptoInfo extends StatefulWidget {
   final info;
@@ -14,8 +15,6 @@ class _CryptoInfoState extends State<CryptoInfo> {
   @override
   Widget build(BuildContext context) {
     Color background = Color(0xff181818);
-    print(widget.info);
-    print("test");
     List<Color> gradientColors = [
       const Color(0xff23b6e6),
       const Color(0xff02d39a)
@@ -27,7 +26,11 @@ class _CryptoInfoState extends State<CryptoInfo> {
               icon: Icon(Icons.arrow_back_ios_sharp),
               color: Colors.white,
               onPressed: () {
-                Navigator.pop(context, true);
+                Navigator.of(context).pop();
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => Home()));
               }),
           title: Text(widget.info['symbol']),
           centerTitle: true,
