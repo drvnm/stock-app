@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:crypto_font_icons/crypto_font_icons.dart';
 import 'pages/crypto/cryptoList.dart';
-import 'stocks/stocks.dart';
+import 'pages/stocks/stocks.dart';
 import 'pages/settings/settings.dart';
 import 'pages/userHome.dart';
 
