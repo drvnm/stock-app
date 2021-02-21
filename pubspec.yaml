@@ -27,7 +27,7 @@ dependencies:
   crypto_font_icons: 0.1.0
   google_fonts: ^1.1.2
   fl_chart: ^0.12.3
-
+  hive: ^1.4.4+1
   shared_preferences: ^0.5.12+4
 
 

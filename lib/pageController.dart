@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:crypto_font_icons/crypto_font_icons.dart';
-import 'cryptoList.dart';
-import 'stocks.dart';
-import 'userHome.dart'; 
+import 'pages/crypto/cryptoList.dart';
+import 'pages/stocks.dart';
+import 'pages/userHome.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -11,13 +11,12 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   List<String> tags = [];
-  int _currentIndex = 0;
+  int _currentIndex = 2;
   var pages = [StocksPage(), UserHome(), CryptoList(), CryptoList()];
   @override
   Widget build(BuildContext context) {
     Color background = Color(0xff181818);
     return Scaffold(
-      
       body: pages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
@@ -32,7 +31,7 @@ class _HomeState extends State<Home> {
           item("Stocks", Icons.attach_money_sharp),
           item("Home", Icons.home_sharp),
           item("Crypto", CryptoFontIcons.BTC),
-           item("Settings", Icons.settings_sharp),
+          item("Settings", Icons.settings_sharp),
         ],
         backgroundColor: background,
       ),

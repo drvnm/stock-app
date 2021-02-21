@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'pageController.dart';
+import '../../pageController.dart';
 
 class CryptoInfo extends StatefulWidget {
   final info;
