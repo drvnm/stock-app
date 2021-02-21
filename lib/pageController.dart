@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:crypto_font_icons/crypto_font_icons.dart';
 import 'pages/crypto/cryptoList.dart';
-import 'pages/stocks.dart';
+import 'stocks/stocks.dart';
+import 'pages/settings/settings.dart';
 import 'pages/userHome.dart';
 
 class Home extends StatefulWidget {
@@ -12,7 +13,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   List<String> tags = [];
   int _currentIndex = 2;
-  var pages = [StocksPage(), UserHome(), CryptoList(), CryptoList()];
+  var pages = [StocksPage(), UserHome(), CryptoList(), Settings()];
   @override
   Widget build(BuildContext context) {
     Color background = Color(0xff181818);

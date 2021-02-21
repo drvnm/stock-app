@@ -43,4 +43,10 @@ class SharedPrefs {
   static deletePref(String symbol) async {
 
   }
+
+  static deleteAll() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.clear(); 
+    print("Data cleared"); 
+  }
 }

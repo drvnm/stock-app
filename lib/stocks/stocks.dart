@@ -54,28 +54,29 @@ class _StocksPageState extends State<StocksPage> {
                               borderRadius: BorderRadius.circular(12.0)),
                           color: Color(0xff222222),
                           child: ListTile(
+                            leading: Icon(Icons.send_and_archive),
+                            // title: Row(
+                            //   children: [
+                            //     Text(name,
+                            //         style: GoogleFonts.firaCode(textStyle: TextStyle(color: Colors.white))),
+                            //     Padding(
+                            //       padding: const EdgeInsets.only(left: 48.0),
+                            //       child: Column(
+                            //         children: [
+                            //           Text(price,
+                            //               style:
+                            //                   TextStyle(color: Colors.white)),
+                            //         ],
+                            //       ),
+                            //     ),
+                            //   ],
+                            // ),
                             subtitle: Text(change24h + "%",
                                 style: TextStyle(
                                   color: double.parse(change24h) < 0
                                       ? Colors.red
                                       : Colors.green,
                                 )),
-                            title: Row(
-                              children: [
-                                Text(name,
-                                    style: GoogleFonts.firaCode(textStyle: TextStyle(color: Colors.white))),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 48.0),
-                                  child: Column(
-                                    children: [
-                                      Text(price,
-                                          style:
-                                              TextStyle(color: Colors.white)),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
                             trailing: Icon(
                               Icons.chevron_right_sharp,
                               color: Colors.white,

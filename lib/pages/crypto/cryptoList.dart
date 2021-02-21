@@ -3,7 +3,6 @@ import 'package:finance_quote/finance_quote.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'oneCrypto.dart';
 import '../../services/prefsController.dart';
-import 'dart:collection';
 
 class CryptoList extends StatefulWidget {
   @override
@@ -12,8 +11,6 @@ class CryptoList extends StatefulWidget {
 
 class _CryptoListState extends State<CryptoList> {
   List<String> tags;
-  var data;
-  var holder;
 
   @override
   initState() {
@@ -50,10 +47,9 @@ class _CryptoListState extends State<CryptoList> {
             builder: (context,
                 AsyncSnapshot<Map<String, Map<String, dynamic>>> snapshot) {
               if (snapshot.hasData) {
-                data = snapshot.data;
-                holder = snapshot.data;
-                print(data);
-                tags = data.keys.toList();
+                print(snapshot.data);
+
+                tags = snapshot.data.keys.toList();
                 return Column(
                   children: [
                     TextField(
@@ -66,21 +62,23 @@ class _CryptoListState extends State<CryptoList> {
                     ),
                     Expanded(
                       child: ListView.builder(
-                        itemCount: data.length,
+                        itemCount: snapshot.data.length,
                         itemBuilder: (context, index) {
-                          String change24h = data[tags[index]]
+                          String change24h = snapshot.data[tags[index]]
                                   ['changePercent24Hr']
                               .substring(0, 4);
-                          String priceRaw = data[tags[index]]["priceUsd"];
+                          String priceRaw =
+                              snapshot.data[tags[index]]["priceUsd"];
                           String price = "\$" +
                               priceRaw.substring(0, priceRaw.indexOf(".") + 3);
-                          String name = data[tags[index]]['symbol'];
+                          String name = snapshot.data[tags[index]]['symbol'];
                           return Container(
                             child: Card(
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(12.0)),
                               color: Color(0xff222222),
                               child: ListTile(
+                                leading: Image.asset("assets/images/symbols/" + snapshot.data[tags[index]]['symbol'].toLowerCase() + ".png", width: 35, height: 35),
                                 onTap: () {
                                   {
                                     Navigator.of(context).pop();
@@ -140,7 +138,9 @@ class _CryptoListState extends State<CryptoList> {
                                             builder: (context,
                                                 AsyncSnapshot<bool> snapshot) {
                                               if (snapshot.hasData) {
-                                                return data
+                                                // print("test");
+                                                // return Container();
+                                                return snapshot.data
                                                     ? Text("Unwatch",
                                                         style: TextStyle(
                                                             color:
@@ -153,7 +153,6 @@ class _CryptoListState extends State<CryptoList> {
                                                 return Text("Watch",
                                                     style: TextStyle(
                                                         color: Colors.white));
-                                                ;
                                               }
                                             },
                                           ),
