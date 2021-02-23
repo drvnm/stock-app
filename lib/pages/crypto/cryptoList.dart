@@ -43,6 +43,10 @@ class _CryptoListState extends State<CryptoList> {
                   'monero',
                   'cardano',
                   'tron',
+                  'uniswap',
+                  'aave',
+                  'cosmos',
+                  'theta'
                 ]),
             builder: (context,
                 AsyncSnapshot<Map<String, Map<String, dynamic>>> snapshot) {
@@ -78,7 +82,13 @@ class _CryptoListState extends State<CryptoList> {
                                   borderRadius: BorderRadius.circular(12.0)),
                               color: Color(0xff222222),
                               child: ListTile(
-                                leading: Image.asset("assets/images/symbols/" + snapshot.data[tags[index]]['symbol'].toLowerCase() + ".png", width: 35, height: 35),
+                                leading: Image.asset(
+                                    "assets/images/symbols/" +
+                                        snapshot.data[tags[index]]['symbol']
+                                            .toLowerCase() +
+                                        ".png",
+                                    width: 35,
+                                    height: 35),
                                 onTap: () {
                                   {
                                     Navigator.of(context).pop();
@@ -119,13 +129,14 @@ class _CryptoListState extends State<CryptoList> {
                                   child: PopupMenuButton(
                                     onSelected: (choice) async {
                                       if (await SharedPrefs.getWatches(
-                                          tags[index])) {
-                                        SharedPrefs.deleteWatch(tags[index]);
+                                          tags[index], 'Watch')) {
+                                        SharedPrefs.deleteWatch(
+                                            tags[index], 'Watch');
                                         setState(() {});
                                         return;
                                       }
-
-                                      SharedPrefs.storeSymbol(choice);
+                                      setState(() {});
+                                      SharedPrefs.storeSymbol(choice, 'Watch');
                                     },
                                     icon: Icon(Icons.more_vert,
                                         color: Colors.white),
@@ -134,7 +145,7 @@ class _CryptoListState extends State<CryptoList> {
                                         PopupMenuItem<String>(
                                           child: FutureBuilder(
                                             future: SharedPrefs.getWatches(
-                                                tags[index]),
+                                                tags[index], 'Watch'),
                                             builder: (context,
                                                 AsyncSnapshot<bool> snapshot) {
                                               if (snapshot.hasData) {

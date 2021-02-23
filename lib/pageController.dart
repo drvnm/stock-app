@@ -12,7 +12,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   List<String> tags = [];
-  int _currentIndex = 2;
+  int _currentIndex = 0;
   var pages = [StocksPage(), UserHome(), CryptoList(), Settings()];
   @override
   Widget build(BuildContext context) {

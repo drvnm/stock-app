@@ -3,26 +3,26 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPrefs {
 
-  static storeSymbol(String symbol) async {
+  static storeSymbol(String symbol, String table) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String> preSymbols = prefs.getStringList('Watch');
+    List<String> preSymbols = prefs.getStringList(table);
     if (preSymbols == null) {
-      prefs.setStringList("Watch", [symbol.toLowerCase()]);
+      prefs.setStringList(table, [symbol.toLowerCase()]);
     } else if (!preSymbols.contains(symbol)) {
       preSymbols.add(symbol.toLowerCase());
-      prefs.setStringList("Watch", preSymbols);
+      prefs.setStringList(table, preSymbols);
       print(preSymbols);
     } else{
       print("Already in shared prefs");
     }
   }
-  static deleteWatch(String symbol) async {
+  static deleteWatch(String symbol, String table) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String> preSymbols = prefs.getStringList('Watch');
+    List<String> preSymbols = prefs.getStringList(table);
     print(preSymbols);
     preSymbols.remove(symbol); 
     print(preSymbols);
-    prefs.setStringList("Watch", preSymbols);
+    prefs.setStringList(table, preSymbols);
     
   }
 
@@ -31,13 +31,22 @@ class SharedPrefs {
     return prefs.getStringList(name);
   }
 
-  static Future<bool> getWatches(String symbol) async {
+  static Future<bool> getWatches(String symbol, String table) async {
      SharedPreferences prefs = await SharedPreferences.getInstance();
-     var watchList = prefs.getStringList('Watch');
+     var watchList = prefs.getStringList(table);
      if(watchList == null){
        return false;
      }
      return watchList.contains(symbol);
+  }
+
+  static Future<List<String>> getValues(String table) async {
+     SharedPreferences prefs = await SharedPreferences.getInstance();
+     var watchList = prefs.getStringList(table);
+     if(watchList == null){
+       return [];
+     }
+     return watchList;
   }
 
   static deletePref(String symbol) async {
