@@ -41,40 +41,40 @@ class _CryptoInfoState extends State<CryptoInfo> {
             child: SizedBox.expand(
               child: Column(
                 children: [
-                  // LineChart(
-                  //   LineChartData(
-                  //     minX: 0,
-                  //     maxX: 11,
-                  //     minY: 0,
-                  //     maxY: 6,
-                  //     borderData: FlBorderData(
-                  //       show: true,
-                  //       border: Border.all(color: Color(0xff37434d), width: 2),
-                  //     ),
-                  //     lineBarsData: [
-                  //       LineChartBarData(
-                  //         isCurved: true,
-                  //         colors: gradientColors,
-                  //         belowBarData: BarAreaData(
-                  //           show: true,
-                  //           colors: gradientColors
-                  //               .map((color) => color.withOpacity(0.3))
-                  //               .toList(),
-                  //         ),
-                  //         spots: [
-                  //           FlSpot(0, 3),
-                  //           FlSpot(0, 3),
-                  //           FlSpot(2.6, 2),
-                  //           FlSpot(4.9, 5),
-                  //           FlSpot(6.8, 2.5),
-                  //           FlSpot(8, 4),
-                  //           FlSpot(9.5, 3),
-                  //           FlSpot(11, 4),
-                  //         ],
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
+                  LineChart(
+                    LineChartData(
+                      minX: 0,
+                      maxX: 11,
+                      minY: 0,
+                      maxY: 6,
+                      borderData: FlBorderData(
+                        show: true,
+                        border: Border.all(color: Color(0xff37434d), width: 2),
+                      ),
+                      lineBarsData: [
+                        LineChartBarData(
+                          isCurved: true,
+                          colors: gradientColors,
+                          belowBarData: BarAreaData(
+                            show: true,
+                            colors: gradientColors
+                                .map((color) => color.withOpacity(0.3))
+                                .toList(),
+                          ),
+                          spots: [
+                            FlSpot(0, 3),
+                            FlSpot(0, 3),
+                            FlSpot(2.6, 2),
+                            FlSpot(4.9, 5),
+                            FlSpot(6.8, 2.5),
+                            FlSpot(8, 4),
+                            FlSpot(9.5, 3),
+                            FlSpot(11, 4),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
                   Container(
                     child: Card(
                         shape: RoundedRectangleBorder(

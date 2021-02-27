@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:finance_quote/finance_quote.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../services/prefsController.dart';
+import 'dart:math';
+import 'oneStock.dart';
 
 class StocksPage extends StatefulWidget {
   @override
@@ -27,13 +29,12 @@ class _StocksPageState extends State<StocksPage> {
           child: Column(
             children: [
               TextField(
-                      decoration: InputDecoration(
-                        labelText: "Search",
-                        labelStyle: TextStyle(color: Colors.white),
-                        prefixIcon:
-                            Icon(Icons.search_sharp, color: Colors.white),
-                      ),
-                    ),
+                decoration: InputDecoration(
+                  labelText: "Search",
+                  labelStyle: TextStyle(color: Colors.white),
+                  prefixIcon: Icon(Icons.search_sharp, color: Colors.white),
+                ),
+              ),
               FutureBuilder(
                 future: FinanceQuote.getRawData(
                     quoteProvider: QuoteProvider.yahoo,
@@ -41,24 +42,28 @@ class _StocksPageState extends State<StocksPage> {
                 builder: (context,
                     AsyncSnapshot<Map<String, Map<String, dynamic>>> snapshot) {
                   if (snapshot.hasData) {
-                    // print(snapshot.data);
+                    print(snapshot.data);
 
                     tags = snapshot.data.keys.toList();
-       
+
                     return Expanded(
-                                          child: ListView.builder(
+                      child: ListView.builder(
                         itemCount: snapshot.data.length,
                         itemBuilder: (context, index) {
                           String change24h = snapshot.data[tags[index]]
                                   ["regularMarketChangePercent"]
-                              .toString()
-                              .substring(0, 4);
-                          var changeBool = double.parse(change24h) > 0;
+                              .toString();
+                          var y =
+                              min(change24h.indexOf(".") + 3, change24h.length);
+                          change24h = change24h.substring(0, y);
+                          bool changeBool = double.parse(change24h) > 0;
                           String priceRaw = snapshot.data[tags[index]]
                                   ["regularMarketPrice"]
                               .toString();
-                          String price =
-                              "\$" + priceRaw.substring(0, priceRaw.indexOf(".") + 3);
+                          var i =
+                              min(priceRaw.indexOf(".") + 3, priceRaw.length);
+                          print(priceRaw);
+                          String price = "\$" + priceRaw.substring(0, i);
                           String name = snapshot.data[tags[index]]['symbol'];
                           return Container(
                             child: Card(
@@ -66,6 +71,15 @@ class _StocksPageState extends State<StocksPage> {
                                     borderRadius: BorderRadius.circular(12.0)),
                                 color: Color(0xff222222),
                                 child: ListTile(
+                                  onTap: () {
+                                    Navigator.of(context).pop();
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (BuildContext context) =>
+                                                StockInfo(snapshot
+                                                    .data[tags[index]])));
+                                  },
                                   leading: changeBool
                                       ? Padding(
                                           padding: const EdgeInsets.all(8.0),
@@ -74,7 +88,8 @@ class _StocksPageState extends State<StocksPage> {
                                         )
                                       : Padding(
                                           padding: const EdgeInsets.all(8.0),
-                                          child: Icon(Icons.arrow_downward_sharp,
+                                          child: Icon(
+                                              Icons.arrow_downward_sharp,
                                               color: Colors.red),
                                         ),
                                   title: Row(
@@ -83,11 +98,12 @@ class _StocksPageState extends State<StocksPage> {
                                         width: 80,
                                         child: Text(name,
                                             style: GoogleFonts.firaCode(
-                                                textStyle:
-                                                    TextStyle(color: Colors.white))),
+                                                textStyle: TextStyle(
+                                                    color: Colors.white))),
                                       ),
                                       Text(price,
-                                          style: TextStyle(color: Colors.white)),
+                                          style:
+                                              TextStyle(color: Colors.white)),
                                     ],
                                   ),
                                   subtitle: changeBool
@@ -112,31 +128,34 @@ class _StocksPageState extends State<StocksPage> {
                                           setState(() {});
                                           return;
                                         }
-                                          
-                                        SharedPrefs.storeSymbol(choice, 'Stock');
+
+                                        SharedPrefs.storeSymbol(
+                                            choice, 'Stock');
                                         setState(() {});
                                       },
-                                      icon:
-                                          Icon(Icons.more_vert, color: Colors.white),
+                                      icon: Icon(Icons.more_vert,
+                                          color: Colors.white),
                                       itemBuilder: (BuildContext context) {
                                         return <PopupMenuEntry<String>>[
                                           PopupMenuItem<String>(
                                             child: FutureBuilder(
                                               future: SharedPrefs.getWatches(
-                                                  tags[index].toLowerCase(), 'Stock'),
+                                                  tags[index].toLowerCase(),
+                                                  'Stock'),
                                               builder: (context,
-                                                  AsyncSnapshot<bool> snapshot) {
+                                                  AsyncSnapshot<bool>
+                                                      snapshot) {
                                                 if (snapshot.hasData) {
-                                                  print(snapshot.data);
-                                                  print(tags[index]);
                                                   // return Container();
                                                   return snapshot.data
                                                       ? Text("Unwatch",
                                                           style: TextStyle(
-                                                              color: Colors.white))
+                                                              color:
+                                                                  Colors.white))
                                                       : Text("Watch",
                                                           style: TextStyle(
-                                                              color: Colors.white));
+                                                              color: Colors
+                                                                  .white));
                                                 } else {
                                                   return Text("Waddtch",
                                                       style: TextStyle(
