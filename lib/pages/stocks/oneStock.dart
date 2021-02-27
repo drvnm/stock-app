@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import '../../pageController.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'dart:math'; 
 
 class StockInfo extends StatefulWidget {
   final info;
@@ -27,9 +28,9 @@ class _CryptoInfoState extends State<StockInfo> {
     Widget subtitle = info['regularMarketChangePercent'] < 0
         ? Row(
             children: [
-              Icon(Icons.arrow_upward, color: Colors.red),
+              Icon(Icons.arrow_downward_sharp, color: Colors.red),
               Text(
-                  " ^ ${info['regularMarketChange'].toString().substring(0, 4)} - ${info['regularMarketChangePercent'].toString().substring(0, 4)}%",
+                  " ${info['regularMarketChange'].toString().substring(0, min(4, info['regularMarketChange'].toString().length))}  ${info['regularMarketChangePercent'].toString().substring(0, min(4, info['regularMarketChangePercent'].toString().length))}%",
                   style: TextStyle(
                     color: Colors.red,
                     fontSize: 15,
@@ -40,7 +41,7 @@ class _CryptoInfoState extends State<StockInfo> {
             children: [
               Icon(Icons.arrow_upward, color: Colors.green),
               Text(
-                  " ${info['regularMarketChange'].toString().substring(0, 4)} + ${info['regularMarketChangePercent'].toString().substring(0, 4)}%",
+                  " ${info['regularMarketChange'].toString().substring(0, min(4, info['regularMarketChange'].toString().length))} + ${info['regularMarketChangePercent'].toString().substring(0, min(4, info['regularMarketChangePercent'].toString().length))}%",
                   style: TextStyle(
                     color: Colors.green,
                     fontSize: 15,
@@ -50,7 +51,7 @@ class _CryptoInfoState extends State<StockInfo> {
     return Scaffold(
         appBar: AppBar(
           leading: IconButton(
-              icon: Icon(Icons.arrow_back_ios_sharp),/
+              icon: Icon(Icons.arrow_back_ios_sharp),
               color: Colors.white,
               onPressed: () {
                 Navigator.of(context).pop();
@@ -141,7 +142,7 @@ class _CryptoInfoState extends State<StockInfo> {
                                                     fontSize: 18)),
                                           ),
                                           Text(
-                                              "\$" +=
+                                              "\$" +
                                                   info['regularMarketDayHigh']
                                                       .toString(),
                                               style: TextStyle(
